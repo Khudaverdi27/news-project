@@ -1,0 +1,32 @@
+body,
+html {
+    @apply h-full bg-[#F4F9F8]
+}
+
+body {
+    @apply text-amberBlack
+}
+
+.nav-link {
+    @apply flex py-[12px] px-[31px] items-center
+}
+
+.nav-link .icon {
+    @apply text-[24px] mr-[24px]
+}
+
+.nav-link span {
+    @apply text-[15px]
+}
+
+.nav-link.active {
+    @apply bg-[#c9e2f7] rounded-full relative after:content-[''] after:absolute after:w-[5px] after:h-[5px] after:bg-skyBlue after:left-[15px] after:rounded-full
+}
+
+.nav-link.active * {
+    @apply text-skyBlue
+}
+
+.nav-link.active span {
+    @apply font-bold
+}
