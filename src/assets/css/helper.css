@@ -1,0 +1,28 @@
+/* === Buttons === */
+.btn {
+    @apply h-[32px] px-[25px] inline-flex items-center justify-center text-[15px]
+}
+
+.btn--lg {
+    @apply h-[38px]
+}
+
+.btn--xl {
+    @apply h-[46px]
+}
+
+.btn--rounded {
+    @apply rounded-[4px]
+}
+
+.btn--primary {
+    @apply bg-primary text-white
+}
+
+.btn--sky-blue {
+    @apply bg-skyBlue text-white
+}
+
+.btn--outline-amberBlack {
+    @apply border-[0.2px] border-amberBlack
+}

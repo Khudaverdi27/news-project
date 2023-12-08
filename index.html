@@ -30,17 +30,49 @@
           <i class="icon icon-gift1 text-[24px] mr-[15px]"></i>
           <span>Subscribe to Premium</span>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
           <span class="text-[30px] font-bold">$8 <small class="font-normal">/m</small></span>
-          <button
-            class="inline-flex items-center justify-center py-[10px] px-[25px] bg-primary rounded-[4px]">Upgrade</button>
+          <button class="btn btn--primary btn--lg btn--rounded">Upgrade</button>
         </div>
       </div>
     </aside>
 
     <div class="layout-main">
-      <header class="header">
+      <header class="flex items-center justify-between pt-[15px] ">
+        <div class="flex items-center flex-1 space-x-[20px]">
+          <div class="bg-[#ECF5F8] w-[495px] shrink-0 flex items-center rounded-theme">
+            <input type="text" class="h-[46px] px-[14px] bg-transparent w-full placeholder:text-[rgba(7,_45,_75,_0.30)]"
+              placeholder="Search for news..">
+            <i class="icon icon-search1 text-amberBlack flex items-center justify-center 
+            w-[46px] text-[18px] cursor-pointer"></i>
+          </div>
+          <a class="btn btn--xl btn--outline-amberBlack btn--rounded !px-[14px] shrink-0" href="#">
 
+            Latest news on <span class="text-skyBlue ml-1">Covid-19</span>
+            <i class="icon icon-arrow-right1 ml-[38px]"></i>
+          </a>
+        </div>
+        <div class="shrink-0 relative group">
+          <div class="relative flex items-center space-x-[13px] cursor-pointer">
+            <span>
+              <i class="icon icon-user1"></i>
+            </span>
+            <span>My Profile</span>
+            <span class="text-xl">
+              <i class="icon icon-chevron-down1"></i>
+            </span>
+          </div>
+          <div
+            class="absolute group-hover:visible group-hover:opacity-100  group-hover: top-full z-50 right-0 w-[190px]  opacity-0 invisible transition-all">
+            <div class="mt-[15px] divide-y bg-white  border border-gray-300 rounded-theme">
+              <a href="#" class="p-[8px] block">Logout</a>
+              <a href="#" class="p-[8px] block">Logout</a>
+              <a href="#" class="p-[8px] block">Logout</a>
+              <a href="#" class="p-[8px] block">Logout</a>
+              <a href="#" class="p-[8px] block">Logout</a>
+            </div>
+          </div>
+        </div>
       </header>
       <div class="layout-page">
         <div class="layout-content">

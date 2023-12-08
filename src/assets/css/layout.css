@@ -1,3 +1,11 @@
 .layout {
-    @apply flex w-full h-full
+    @apply flex w-full h-full gap-x-[45px]
+}
+
+.layout-left {
+    @apply w-[260px] shrink-0
+}
+
+.layout-main {
+    @apply flex-1
 }
