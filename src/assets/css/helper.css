@@ -1,6 +1,6 @@
 /* === Buttons === */
 .btn {
-    @apply h-[32px] px-[25px] inline-flex items-center justify-center text-[15px]
+    @apply h-[32px] px-[15px] inline-flex items-center justify-center text-[15px]
 }
 
 .btn--lg {
@@ -25,4 +25,36 @@
 
 .btn--outline-amberBlack {
     @apply border-[0.2px] border-amberBlack
+}
+
+.btn--outline-skyBlack {
+    @apply border-[0.2px] border-skyBlue text-skyBlue
+}
+
+.dropdown-menu {
+    @apply absolute right-0 z-50 transition-all w-[190px] top-0 opacity-0 invisible
+}
+
+.dropdown-menu--open {
+    @apply top-full opacity-100 visible
+}
+
+.head-1 {
+    @apply text-[26px] font-[700] leading-[34px]
+}
+
+.head-2 {
+    @apply text-[20px] font-[700] leading-normal
+}
+
+.head-3 {
+    @apply text-[18px] font-[500] leading-[24px]
+}
+
+.head-4 {
+    @apply text-[15px] font-[700] leading-normal
+}
+
+.card {
+    @apply bg-white shadow-theme p-[15px] rounded-theme
 }

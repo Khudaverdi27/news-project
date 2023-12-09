@@ -24,11 +24,11 @@ body {
 }
 
 .nav-link.active {
-    @apply bg-[#c9e2f7] rounded-full relative after:content-['']
+    @apply bg-[#c9e2f7] rounded-tr-full rounded-br-full relative
 }
 
 .nav-link.active::after {
-    @apply absolute w-[5px] h-[5px] bg-skyBlue left-[15px] rounded-full
+    @apply content-[''] absolute w-[5px] h-[5px] bg-skyBlue left-[15px] rounded-full
 }
 
 .nav-link.active * {

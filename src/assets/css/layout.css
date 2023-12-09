@@ -1,5 +1,5 @@
 .layout {
-    @apply flex w-full h-full gap-x-[45px]
+    @apply flex 2xl:w-[1200px] 2xl:mx-auto w-full h-full gap-x-[45px]
 }
 
 .layout-left {
@@ -7,5 +7,13 @@
 }
 
 .layout-main {
-    @apply flex-1
+    @apply flex-1 pr-[15px]
+}
+
+.layout-page {
+    @apply flex gap-x-[45px]
+}
+
+.layout-right {
+    @apply w-[285px] shrink-0
 }
