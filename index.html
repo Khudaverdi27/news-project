@@ -15,26 +15,33 @@
         <img src="./src/assets/img/logo.png" alt="">
         <span class="text-primary font-[700] text-[18px]">Aster News</span>
       </a>
-      <nav>
-        <a href="#" class="nav-link active">
-          <i class="icon icon-home1"></i>
-          <span>Top Stories</span>
-        </a>
-        <a href="#" class="nav-link">
-          <i class="icon icon-home1"></i>
-          <span>Top Stories</span>
-        </a>
+      <nav id="navigation">
+
+        <template id="navigation-item">
+          <a href="#" class="nav-link">
+            <i class="icon icon-home1"></i>
+            <span>Top Stories</span>
+          </a>
+          </a>
+        </template>
+
       </nav>
-      <div class="bg-skyBlue text-white mt-[70px] p-[20px] rounded-[4px] ml-[14px]">
-        <div class="flex items-center mb-[13px]">
-          <i class="icon icon-gift1 text-[24px] mr-[15px]"></i>
-          <span>Subscribe to Premium</span>
-        </div>
-        <div class="flex justify-between items-center">
-          <span class="text-[30px] font-bold">$8 <small class="font-normal">/m</small></span>
-          <button class="btn btn--primary btn--lg btn--rounded">Upgrade</button>
-        </div>
+      <div id="subscription">
+        <template id="subscription-box">
+          <div class="bg-skyBlue text-white mt-[70px] p-[20px] rounded-[4px] ml-[14px]">
+            <div class="flex items-center mb-[13px]">
+              <i class="icon icon-gift1 text-[24px] mr-[15px]"></i>
+              <span>Subscribe to Premium</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-[30px] font-bold">$8 <small class="font-normal">/m</small></span>
+              <button class="btn btn--primary btn--lg btn--rounded">Upgrade</button>
+            </div>
+          </div>
+        </template>
       </div>
+
+
     </aside>
 
     <div class="layout-main">
@@ -75,47 +82,49 @@
         </div>
       </header>
       <div class="layout-page">
-        <div class="layout-content">
+        <div class="layout-content flex-1">
           <div>
             <h3 class="head-2 mb-[22px]">Top Stories for you</h3>
-            <div class="grid grid-cols-2 gap-[20px]">
-              <article class="bg-white shadow-theme py-[17px] px-[23px] rounded-theme">
-                <div class="flex space-x-[20px]">
-                  <div>
-                    <h5 class="head-3 line-clamp-2 mb-[9px]">Battlegrounds Mobile India iOS release date</h5>
-                    <p class="text-[14px] leading-[22px] line-clamp-3">Samsung Galaxy F22 has been launched in India.
-                      The new
-                      smartphone has been priced in the
-                      mid-range
-                      segment. The new smartphone is powered by a MediaTek chipset and features a high refresh rate
-                      AMOLED
-                      display.</p>
+            <div class="grid grid-cols-2 gap-[20px]" id="news-content">
+              <template id="news-template">
+                <article class="bg-white shadow-theme py-[17px] px-[23px] rounded-theme">
+                  <div class="flex space-x-[20px]">
+                    <div>
+                      <h5 class="head-3 line-clamp-2 mb-[9px]">Battlegrounds Mobile India iOS release date</h5>
+                      <p class="text-[14px] leading-[22px] line-clamp-3">Samsung Galaxy F22 has been launched in India.
+                        The new
+                        smartphone has been priced in the
+                        mid-range
+                        segment. The new smartphone is powered by a MediaTek chipset and features a high refresh rate
+                        AMOLED
+                        display.</p>
+                    </div>
+                    <div>
+                      <figure class="w-[120px] h-[120px] rounded-theme overflow-hidden">
+                        <img class="w-full h-full object-cover"
+                          src="https://all-api.bitcode.az/uploads/photos/author/photo-9.jpeg" alt="">
+                      </figure>
+                    </div>
                   </div>
-                  <div>
-                    <figure class="w-[120px] h-[120px] rounded-theme overflow-hidden">
-                      <img class="w-full h-full object-cover"
-                        src="https://all-api.bitcode.az/uploads/photos/author/photo-9.jpeg" alt="">
-                    </figure>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between text-[12px] pt-[8px]">
-                  <div>
-                    <span>Sport Biz</span>
-                    <span>42 mins ago</span>
-                  </div>
+                  <div class="flex items-center justify-between text-[12px] pt-[8px]">
+                    <div>
+                      <span>Sport Biz</span>
+                      <span>42 mins ago</span>
+                    </div>
 
-                  <div>
-                    <a href="#">
-                      <i class="icon icon-share1"></i>
-                      <span>Share</span>
-                    </a>
-                    <a href="#">
-                      <i class="icon icon-pocket"></i>
-                      <span>Read Later</span>
-                    </a>
+                    <div>
+                      <a href="#">
+                        <i class="icon icon-share1"></i>
+                        <span>Share</span>
+                      </a>
+                      <a href="#">
+                        <i class="icon icon-pocket"></i>
+                        <span>Read Later</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </template>
 
             </div>
           </div>
