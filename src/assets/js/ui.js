@@ -1,4 +1,4 @@
-import { serviceNewsList, serviceCategoryList } from "./services.js"
+import { serviceNewsList, serviceCategoryList, serviceNewsBySlug } from "./services.js"
 
 export const getUiTemplate = (id, selector) => {
     const element = document.getElementById(id)
@@ -58,7 +58,23 @@ export const uiNews = async () => {
         newtemplate.querySelector('.title').textContent = i.title
         newtemplate.querySelector('.description').textContent = i.description
         newtemplate.querySelector('.agency').textContent = i.author.agency
+        newtemplate.querySelector('.read-later').href = `/#/view?slug=${i.slug}`
         html += template.outerHTML
     });
     content.innerHTML = html
+}
+
+export const uiNewsView = async (slug) => {
+    const res = await serviceNewsBySlug()
+    const content = document.getElementById('news-view')
+    const template = getUiTemplate('news-view-content', 'div')
+}
+
+export const UI = {
+    home() {
+        uiNews()
+    },
+    view({ slug }) {
+        uiNewsView(slug)
+    }
 }

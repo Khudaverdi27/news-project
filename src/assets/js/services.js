@@ -9,3 +9,8 @@ export const serviceCategoryList = async () => {
     return category
 
 }
+
+export const serviceNewsBySlug = async (slug) => {
+    const res = await get(`/news/slug/${slug}`)
+    return res
+}
