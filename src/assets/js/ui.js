@@ -36,6 +36,7 @@ export const uiNavigator = async () => {
         newtemplate.querySelector('.category-head').textContent = (c.slug).charAt(0).toUpperCase() + (c.slug).slice(1);
         html += newtemplate.outerHTML
     });
+
     navContainer.innerHTML = html
 }
 
