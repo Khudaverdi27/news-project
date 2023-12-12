@@ -33,7 +33,7 @@ export const uiNavigator = async () => {
     category.forEach(c => {
         let newtemplate = tagLink
         newtemplate.querySelector('i').classList = `${getCategoryIcon(c.slug)}`
-        newtemplate.querySelector('.category-head').textContent = c.name
+        newtemplate.querySelector('.category-head').textContent = (c.slug).charAt(0).toUpperCase() + (c.slug).slice(1);
         html += newtemplate.outerHTML
     });
     navContainer.innerHTML = html
