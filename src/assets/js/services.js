@@ -11,6 +11,7 @@ export const serviceCategoryList = async () => {
 }
 
 export const serviceNewsBySlug = async (slug) => {
+
     const res = await get(`/news/slug/${slug}`)
     return res
 }

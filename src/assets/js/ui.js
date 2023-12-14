@@ -1,4 +1,5 @@
 import { serviceNewsList, serviceCategoryList, serviceNewsBySlug } from "./services.js"
+import moment from 'moment';
 
 export const getUiTemplate = (id, selector) => {
     const element = document.getElementById(id)
@@ -59,14 +60,15 @@ export const uiNews = async () => {
         newtemplate.querySelector('.title').textContent = i.title
         newtemplate.querySelector('.description').textContent = i.description
         newtemplate.querySelector('.agency').textContent = i.author.agency
+        newtemplate.querySelector('.publishDate').textContent = moment(i.published_date).format(' HH:mm');
         newtemplate.querySelector('.read-later').href = `/#/view?slug=${i.slug}`
-        html += template.outerHTML
+        html += newtemplate.outerHTML
     });
     content.innerHTML = html
 }
 
 export const uiNewsView = async (slug) => {
-    const res = await serviceNewsBySlug()
+    const res = await serviceNewsBySlug(slug)
     const content = document.getElementById('news-view')
     const template = getUiTemplate('news-view-content', 'div')
 }

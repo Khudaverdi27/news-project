@@ -10,6 +10,7 @@ const request = async (url, method, params = false) => {
         JSON.stringify(params)
     }
     const api = await fetch(baseUrl + url, options)
+
     return await api.json()
 }
 
