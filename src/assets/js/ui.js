@@ -1,5 +1,10 @@
+import { viewRouter } from "./router.js";
 import { serviceNewsList, serviceCategoryList, serviceNewsBySlug } from "./services.js"
 import moment from 'moment';
+import { getStorage, saveStorage } from "./storage.js";
+import { objectToQueryString } from "./helper.js";
+
+let categories = getStorage('categories');
 
 export const getUiTemplate = (id, selector) => {
     const element = document.getElementById(id)
@@ -24,9 +29,15 @@ const getCategoryIcon = (key) => {
     return icons[key]
 }
 
+export const toCapitalizeLetter = (str) => {
+    return (str).charAt(0).toUpperCase() + (str).slice(1);
+}
+
 export const uiNavigator = async () => {
 
     const category = await serviceCategoryList()
+    saveStorage("categories", category)
+
     const navContainer = document.getElementById('navigation')
     const tagLink = getUiTemplate('navigation-item', '.nav-link')
     let html = ''
@@ -34,7 +45,8 @@ export const uiNavigator = async () => {
     category.forEach(c => {
         let newtemplate = tagLink
         newtemplate.querySelector('i').classList = `${getCategoryIcon(c.slug)}`
-        newtemplate.querySelector('.category-head').textContent = (c.slug).charAt(0).toUpperCase() + (c.slug).slice(1);
+        newtemplate.querySelector('.category-head').textContent = toCapitalizeLetter(c.slug)
+        newtemplate.href = `/#/search?category=${c.slug}`
         html += newtemplate.outerHTML
     });
 
@@ -47,8 +59,9 @@ export const uiSubscription = () => {
     content.innerHTML = item.outerHTML
 
 }
-export const uiNews = async () => {
-    const res = await serviceNewsList()
+export const uiNews = async (params = {}) => {
+
+    const res = await serviceNewsList(objectToQueryString(params))
     const content = document.getElementById('news-content')
     const template = getUiTemplate('news-template', 'article')
 
@@ -69,8 +82,31 @@ export const uiNews = async () => {
 
 export const uiNewsView = async (slug) => {
     const res = await serviceNewsBySlug(slug)
+
+    if (res?.status === 404) {
+
+        viewRouter('error')
+        return false
+    }
     const content = document.getElementById('news-view')
     const template = getUiTemplate('news-view-content', 'div')
+    template.querySelector('#title').textContent = res.title
+    template.querySelector('#category').textContent = toCapitalizeLetter(res.category.slug)
+    template.querySelector('#category').href = `/#/search?category=${res.category.slug}`
+    template.querySelector('#photo').src = res.photo
+    template.querySelector('#content').innerHTML = res.content
+    // template.getElementById('title').textContent = res.title
+    content.innerHTML = template.outerHTML
+}
+
+export const newsSearch = (params) => {
+
+    const { category } = params
+    const findCategory = categories.find(c => c.slug === category)
+    document.getElementById('pageTitle').textContent = toCapitalizeLetter(findCategory.slug)
+
+    uiNews(params)
+
 }
 
 export const UI = {
@@ -79,5 +115,9 @@ export const UI = {
     },
     view({ slug }) {
         uiNewsView(slug)
+    },
+    search(params) {
+
+        newsSearch(params)
     }
 }

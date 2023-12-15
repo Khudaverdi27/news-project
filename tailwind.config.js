@@ -19,10 +19,17 @@ export default {
         theme: '4px'
       },
       boxShadow: {
-        theme: '0px 2px 20px 0px rgba(0, 0, 0, 0.04);'
+        theme: '0px 2px 20px 0px rgba(0, 0, 0, 0.04)',
       }
+
     },
   },
-  plugins: [],
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography')
+  ],
 }
 

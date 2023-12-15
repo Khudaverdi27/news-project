@@ -80,10 +80,20 @@
           </div>
         </div>
       </header>
-      <div class="layout-page">
-        <div class="layout-content flex-1" id="app">
-
+      <div class="layout-page ">
+        <div class="layout-content flex-1 relative">
+          <div id="app"></div>
+          <footer
+            class="flex justify-between items-center py-[23px] text-[12px] opacity-40 border-t border-gray-400 mt-[54px]">
+            <span>© Aster News, 2022</span>
+            <div>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+            </div>
+          </footer>
         </div>
+
+
         <aside class="layout-right space-y-[15px]">
           <div class="card">
             <div class="flex items-center justify-between border-b border-gray-200 pb-2">
@@ -154,7 +164,9 @@
       </div>
     </div>
   </main>
-
+  <div class="loading" id="loading">
+    <img src="/src/assets/img/Rolling-1s-200px.svg" alt="">
+  </div>
 
   <script type="module" src="./src/assets/js/main.js"></script>
 </body>

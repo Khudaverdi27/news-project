@@ -38,3 +38,18 @@ body {
 .nav-link.active span {
     @apply font-bold
 }
+
+.loading {
+    @apply hidden fixed inset-0 flex items-center justify-center h-full w-full;
+}
+
+.loading::after {
+    content: '';
+    @apply absolute inset-0 bg-white/80;
+}
+
+
+
+.loading img {
+    @apply relative z-10 w-[60px] h-[60px] object-contain
+}

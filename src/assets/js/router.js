@@ -1,6 +1,12 @@
 import { getPath, getQueryParams } from './helper.js'
 import { UI } from './ui.js'
-const findRoute = async (path) => {
+
+export const routerLoading = (action = false) => {
+    const loading = document.getElementById('loading')
+    action ? loading.style.display = 'flex' : loading.style.display = 'none'
+}
+
+export const findRoute = async (path) => {
     try {
 
         const response = await fetch(`/${path}.html`)
@@ -12,8 +18,17 @@ const findRoute = async (path) => {
 
 }
 
-export const router = async () => {
+export const viewRouter = async (path) => {
+
     const appDiv = document.getElementById('app');
+    let findPage = await findRoute(path)
+
+
+    appDiv.innerHTML = findPage
+}
+
+export const router = async () => {
+
     const replacePath = window.location.hash.slice(1).replace('/', '');
 
 
@@ -22,14 +37,11 @@ export const router = async () => {
     path = path ? path : 'home'
     const queryParams = getQueryParams(url)
 
-    if (!path) {
+    if (path === 'home') {
         window.location.href = '/#/'
 
     }
-    let findPage = await findRoute(path)
-
-
-    appDiv.innerHTML = findPage
+    await viewRouter(path)
 
     if (UI[path]) {
         UI[path](queryParams)

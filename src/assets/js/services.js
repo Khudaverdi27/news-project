@@ -1,6 +1,11 @@
 import { get } from './request.js';
-export const serviceNewsList = async () => {
-    const res = await get('/news')
+import { routerLoading } from './router.js';
+
+export const serviceNewsList = async (params = false) => {
+
+    routerLoading(true)
+    const res = await get('/news' + (params ? "?" + params : ""))
+    routerLoading(false)
     return res.data
 }
 
@@ -11,7 +16,8 @@ export const serviceCategoryList = async () => {
 }
 
 export const serviceNewsBySlug = async (slug) => {
-
+    routerLoading(true)
     const res = await get(`/news/slug/${slug}`)
+    routerLoading(false)
     return res
 }

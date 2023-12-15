@@ -58,3 +58,7 @@
 .card {
     @apply bg-white shadow-theme p-[15px] rounded-theme
 }
+
+.image-cover {
+    @apply w-full h-full object-cover
+}
