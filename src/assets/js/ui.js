@@ -95,7 +95,6 @@ export const uiNewsView = async (slug) => {
     template.querySelector('#category').href = `/#/search?category=${res.category.slug}`
     template.querySelector('#photo').src = res.photo
     template.querySelector('#content').innerHTML = res.content
-    // template.getElementById('title').textContent = res.title
     content.innerHTML = template.outerHTML
 }
 
