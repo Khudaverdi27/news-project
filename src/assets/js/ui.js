@@ -4,7 +4,6 @@ import moment from 'moment';
 import { getStorage, saveStorage } from "./storage.js";
 import { objectToQueryString } from "./helper.js";
 
-let categories = getStorage('categories');
 
 export const getUiTemplate = (id, selector) => {
     const element = document.getElementById(id)
@@ -24,7 +23,16 @@ const getCategoryIcon = (key) => {
         "health": 'icon icon-activity',
         "science": 'icon icon-newspaper-o',
         "culture": 'icon icon-slideshare',
-        "environment": 'icon icon-ge'
+        "environment": 'icon icon-ge',
+        "clear sky": "icon icon-sun",
+        "few clouds": "icon icon-cloud",
+        "scattered clouds": "icon icon-cloud1",
+        "broken clouds": "icon icon-cloud",
+        "shower rain": "icon icon-cloud-rain",
+        "rain": "icon icon-cloud-drizzle",
+        "thunderstorm": "icon icon-cloud-lightning",
+        "snow": "icon icon-cloud-snow",
+        "mist": "icon icon-cloud1"
     }
     return icons[key]
 }
@@ -53,15 +61,9 @@ export const uiNavigator = async () => {
     navContainer.innerHTML = html
 }
 
-export const uiSubscription = () => {
-    const content = document.getElementById('subscription')
-    const item = getUiTemplate('subscription-box', 'div')
-    content.innerHTML = item.outerHTML
-
-}
 export const uiNews = async (params = {}) => {
 
-    const res = await serviceNewsList(objectToQueryString(params))
+    const res = await serviceNewsList(4, objectToQueryString(params))
     const content = document.getElementById('news-content')
     const template = getUiTemplate('news-template', 'article')
 
@@ -77,8 +79,11 @@ export const uiNews = async (params = {}) => {
         newtemplate.querySelector('.read-later').href = `/#/view?slug=${i.slug}`
         html += newtemplate.outerHTML
     });
+
     content.innerHTML = html
 }
+
+
 
 export const uiNewsView = async (slug) => {
     const res = await serviceNewsBySlug(slug)
@@ -99,11 +104,14 @@ export const uiNewsView = async (slug) => {
 }
 
 export const newsSearch = (params) => {
-
+    let categories = getStorage('categories');
     const { category } = params
-    const findCategory = categories.find(c => c.slug === category)
-    document.getElementById('pageTitle').textContent = toCapitalizeLetter(findCategory.slug)
 
+    const findCategory = categories.find(c => c.slug === category)
+
+
+
+    document.getElementById('pageTitle').textContent = toCapitalizeLetter(findCategory.slug)
     uiNews(params)
 
 }
@@ -112,7 +120,9 @@ const weatherInfo = async () => {
     const weatherInfo = await serviceWeather()
     document.getElementById('cityName').textContent = `${weatherInfo.name}, ${weatherInfo.sys.country}`
     document.getElementById('wheaterType').textContent = weatherInfo.weather[0].main
+    document.getElementById('weatherIcon').classList = getCategoryIcon(weatherInfo.weather[0].description)
     document.getElementById('weatherTemp').textContent = Math.round(weatherInfo.main.temp - 272.15)
+
 }
 
 export const UI = {

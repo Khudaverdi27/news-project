@@ -1,10 +1,9 @@
 import { get, getWeather } from './request.js';
 import { routerLoading } from './router.js';
 
-export const serviceNewsList = async (params = false) => {
-
+export const serviceNewsList = async (limit, params = false) => {
     routerLoading(true)
-    const res = await get('/news' + (params ? "?" + params : ""))
+    const res = await get('/news' + (params ? "?" + `limit=${limit}&${params}` : `?limit=${limit}`))
     routerLoading(false)
     return res.data
 }

@@ -26,18 +26,16 @@
 
       </nav>
       <div id="subscription">
-        <template id="subscription-box">
-          <div class="bg-skyBlue text-white mt-[70px] p-[20px] rounded-[4px] ml-[14px]">
-            <div class="flex items-center mb-[13px]">
-              <i class="icon icon-gift1 text-[24px] mr-[15px]"></i>
-              <span>Subscribe to Premium</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-[30px] font-bold">$8 <small class="font-normal">/m</small></span>
-              <button class="btn btn--primary btn--lg btn--rounded">Upgrade</button>
-            </div>
+        <div class="bg-skyBlue text-white mt-[70px] p-[20px] rounded-[4px] ml-[14px]">
+          <div class="flex items-center mb-[13px]">
+            <i class="icon icon-gift1 text-[24px] mr-[15px]"></i>
+            <span>Subscribe to Premium</span>
           </div>
-        </template>
+          <div class="flex justify-between items-center">
+            <span class="text-[30px] font-bold">$8 <small class="font-normal">/m</small></span>
+            <button class="btn btn--primary btn--lg btn--rounded">Upgrade</button>
+          </div>
+        </div>
       </div>
 
 
@@ -83,6 +81,9 @@
       <div class="layout-page ">
         <div class="layout-content flex-1 relative">
           <div id="app"></div>
+          <div class="flex items-center justify-center mt-5">
+            <button id="moreNews" class="btn btn--lg btn--rounded btn--sky-blue cursor-pointer">Show More</button>
+          </div>
           <footer
             class="flex justify-between items-center py-[23px] text-[12px] opacity-40 border-t border-gray-400 mt-[54px]">
             <span>© Aster News, 2022</span>
@@ -97,18 +98,18 @@
         <aside class="layout-right space-y-[15px]">
           <div class="card">
             <div class="flex items-center justify-between border-b border-gray-200 pb-2">
-              <h5 id="cityName" class="font-bold">Coimbatore, Tamil Nadu</h5>
+              <h5 id="cityName" class="font-bold">-------</h5>
               <span>
-                <i class="ico icon-crosshair"></i>
+                <i class="icon icon-crosshair"></i>
               </span>
             </div>
             <div class="flex items-center justify-between">
               <div>
-                <small id="wheaterType">Sunny</small>
-                <p class="text-[26px] font-bold"><span id="weatherTemp">31</span><sup>o</sup>C</p>
+                <small id="wheaterType">----</small>
+                <p class="text-[26px] font-bold"><span id="weatherTemp">--</span><sup>o</sup>C</p>
               </div>
               <div class="text-[52px] text-[#FFCF26]">
-                <i class="icon icon-sun"></i>
+                <i id="weatherIcon" class="---"></i>
               </div>
             </div>
 

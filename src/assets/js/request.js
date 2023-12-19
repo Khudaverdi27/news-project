@@ -1,5 +1,5 @@
-const baseUrl = 'https://all-api.bitcode.az/api'
-const urlWeather = "https://api.openweathermap.org/data/2.5/";
+const baseUrl = import.meta.env.VITE_BASE_URL
+const urlWeather = import.meta.env.VITE_WEATHER_URL;
 const request = async (baseUrl, url, method, params = false) => {
 
     let headers = {

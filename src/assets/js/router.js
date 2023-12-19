@@ -29,13 +29,11 @@ export const viewRouter = async (path) => {
 
 export const router = async () => {
 
-    const replacePath = window.location.hash.slice(1).replace('/', '');
+    const replacePath = window.location.hash.slice(2);
 
-
-    const url = !replacePath ? 'home' : replacePath
-    let path = getPath(url);
+    let path = getPath(replacePath);
     path = path ? path : 'home'
-    const queryParams = getQueryParams(url)
+    const queryParams = getQueryParams(replacePath)
 
     if (path === 'home') {
         window.location.href = '/#/'
