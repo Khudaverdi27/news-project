@@ -1,5 +1,5 @@
 import { viewRouter } from "./router.js";
-import { serviceNewsList, serviceCategoryList, serviceNewsBySlug } from "./services.js"
+import { serviceNewsList, serviceCategoryList, serviceNewsBySlug, serviceWeather } from "./services.js"
 import moment from 'moment';
 import { getStorage, saveStorage } from "./storage.js";
 import { objectToQueryString } from "./helper.js";
@@ -108,15 +108,24 @@ export const newsSearch = (params) => {
 
 }
 
+const weatherInfo = async () => {
+    const weatherInfo = await serviceWeather()
+    document.getElementById('cityName').textContent = `${weatherInfo.name}, ${weatherInfo.sys.country}`
+    document.getElementById('wheaterType').textContent = weatherInfo.weather[0].main
+    document.getElementById('weatherTemp').textContent = Math.round(weatherInfo.main.temp - 272.15)
+}
+
 export const UI = {
     home() {
         uiNews()
+        weatherInfo()
     },
     view({ slug }) {
         uiNewsView(slug)
+        weatherInfo()
     },
     search(params) {
-
         newsSearch(params)
+        weatherInfo()
     }
 }

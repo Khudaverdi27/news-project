@@ -1,5 +1,6 @@
 const baseUrl = 'https://all-api.bitcode.az/api'
-const request = async (url, method, params = false) => {
+const urlWeather = "https://api.openweathermap.org/data/2.5/";
+const request = async (baseUrl, url, method, params = false) => {
 
     let headers = {
         'Accept': 'application/json'
@@ -22,4 +23,5 @@ const request = async (url, method, params = false) => {
 
 }
 
-export const get = (url) => request(url, 'GET')
+export const get = (url) => request(baseUrl, url, 'GET')
+export const getWeather = (url) => request(urlWeather, url, 'GET')

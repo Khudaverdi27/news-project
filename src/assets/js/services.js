@@ -1,4 +1,4 @@
-import { get } from './request.js';
+import { get, getWeather } from './request.js';
 import { routerLoading } from './router.js';
 
 export const serviceNewsList = async (params = false) => {
@@ -20,4 +20,12 @@ export const serviceNewsBySlug = async (slug) => {
     const res = await get(`/news/slug/${slug}`)
     routerLoading(false)
     return res
+}
+
+export const serviceWeather = async () => {
+    const query = "weather?q=Baku&appid=1882ca3053a86bff2e348a30b9d66d62&lang=en";
+    const info = await getWeather(query)
+
+    return info
+
 }
