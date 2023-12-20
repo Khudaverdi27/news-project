@@ -56,9 +56,19 @@ export const uiNavigator = async () => {
         newtemplate.querySelector('.category-head').textContent = toCapitalizeLetter(c.slug)
         newtemplate.href = `/#/search?category=${c.slug}`
         html += newtemplate.outerHTML
+
+    });
+    navContainer.innerHTML = html;
+
+    navContainer.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navContainer.querySelectorAll('.nav-link').forEach(addActive => {
+                addActive.classList.remove('active');
+            });
+            link.classList.add('active');
+        });
     });
 
-    navContainer.innerHTML = html
 }
 
 export const uiNews = async (params = {}) => {
