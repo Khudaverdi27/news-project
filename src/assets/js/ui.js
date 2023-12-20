@@ -76,7 +76,7 @@ export const uiNews = async (params = {}) => {
                 template.querySelector('.title').textContent = item.title;
                 template.querySelector('.description').textContent = item.description;
                 template.querySelector('.agency').textContent = item.author.agency;
-                template.querySelector('.publishDate').textContent = moment(item.published_date).format(' HH:mm');
+                template.querySelector('.publishDate').textContent = moment(item.published_date).format('DD-MM-YY, HH:mm');
                 template.querySelector('.read-later').href = `/#/view?slug=${item.slug}`;
                 html += template.outerHTML;
             });
