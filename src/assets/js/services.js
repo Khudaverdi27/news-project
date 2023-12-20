@@ -1,5 +1,7 @@
 import { get, getWeather } from './request.js';
 import { routerLoading } from './router.js';
+import { getPosition } from './helper.js';
+
 
 export const serviceNewsList = async (limit, params = false) => {
     routerLoading(true)
@@ -21,10 +23,25 @@ export const serviceNewsBySlug = async (slug) => {
     return res
 }
 
-export const serviceWeather = async () => {
-    const query = "weather?q=Baku&appid=1882ca3053a86bff2e348a30b9d66d62&lang=en";
-    const info = await getWeather(query)
 
-    return info
+export const serviceWeather = () => new Promise(async (resolve, reject) => {
+    if ('geolocation' in navigator) {
 
-}
+        try {
+            const position = await getPosition();
+            const { latitude, longitude } = position.coords;
+            const key = "1882ca3053a86bff2e348a30b9d66d62";
+            const query = `weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+
+            resolve(await getWeather(query));
+        } catch (error) {
+            reject(error);
+        }
+    } else {
+        reject(new Error('Browser dont support Geolocation'));
+    }
+});
+
+
+
+

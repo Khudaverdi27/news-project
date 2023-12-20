@@ -34,7 +34,7 @@ const getCategoryIcon = (key) => {
         "snow": "icon icon-cloud-snow",
         "mist": "icon icon-cloud1"
     }
-    return icons[key]
+    return icons[key ? key : "few clouds"]
 }
 
 export const toCapitalizeLetter = (str) => {
@@ -62,26 +62,49 @@ export const uiNavigator = async () => {
 }
 
 export const uiNews = async (params = {}) => {
+    let newsCount = 4;
+    let value = true
+    try {
+        const content = document.getElementById('news-content');
+        const template = getUiTemplate('news-template', 'article');
+        const showBtn = document.getElementById('moreNews');
 
-    const res = await serviceNewsList(4, objectToQueryString(params))
-    const content = document.getElementById('news-content')
-    const template = getUiTemplate('news-template', 'article')
+        const updateContent = (newsList) => {
+            let html = '';
+            newsList.forEach(item => {
+                template.querySelector('figure img').src = item.photo;
+                template.querySelector('.title').textContent = item.title;
+                template.querySelector('.description').textContent = item.description;
+                template.querySelector('.agency').textContent = item.author.agency;
+                template.querySelector('.publishDate').textContent = moment(item.published_date).format(' HH:mm');
+                template.querySelector('.read-later').href = `/#/view?slug=${item.slug}`;
+                html += template.outerHTML;
+            });
+            content.innerHTML = html;
+            if (newsList.length >= 20 && value) {
+                showBtn.style.display = 'none';
+                value = false
+            } else {
+                showBtn.style.display = 'flex';
+            }
+        };
 
-    let html = ''
+        const res = await serviceNewsList(newsCount, objectToQueryString(params));
+        updateContent(res);
 
-    res.forEach(i => {
-        let newtemplate = template
-        newtemplate.querySelector('figure img').src = i.photo
-        newtemplate.querySelector('.title').textContent = i.title
-        newtemplate.querySelector('.description').textContent = i.description
-        newtemplate.querySelector('.agency').textContent = i.author.agency
-        newtemplate.querySelector('.publishDate').textContent = moment(i.published_date).format(' HH:mm');
-        newtemplate.querySelector('.read-later').href = `/#/view?slug=${i.slug}`
-        html += newtemplate.outerHTML
-    });
+        const loadMoreNews = async () => {
+            const additionalNews = await serviceNewsList(newsCount + 2, objectToQueryString(params));
+            newsCount += 4;
+            updateContent(additionalNews);
+        };
+        showBtn.addEventListener('click', loadMoreNews);
 
-    content.innerHTML = html
-}
+    } catch (error) {
+        console.error('error happened:', error);
+    }
+};
+
+
 
 
 
@@ -109,8 +132,6 @@ export const newsSearch = (params) => {
 
     const findCategory = categories.find(c => c.slug === category)
 
-
-
     document.getElementById('pageTitle').textContent = toCapitalizeLetter(findCategory.slug)
     uiNews(params)
 
@@ -122,7 +143,6 @@ const weatherInfo = async () => {
     document.getElementById('wheaterType').textContent = weatherInfo.weather[0].main
     document.getElementById('weatherIcon').classList = getCategoryIcon(weatherInfo.weather[0].description)
     document.getElementById('weatherTemp').textContent = Math.round(weatherInfo.main.temp - 272.15)
-
 }
 
 export const UI = {
