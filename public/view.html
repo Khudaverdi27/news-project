@@ -15,9 +15,42 @@
                         class="image-cover" alt="">
                 </figure>
             </div>
-            <div id="content" class="prose max-w-full mt-[38px]">
+            <div id="content" class="prose max-w-full mt-[38px]"></div>
 
-
+            <div id="form-comment" class="mt-[32px]">
+                <h4 class="font-[700] text-[17px]">Add your comment</h4>
+                <div>
+                    <textarea disabled
+                        class="bg-[#ECF5F8] border my-[10px] border-gray-300 rounded-theme w-full py-[12px] px-[18px] disabled:opacity-50"
+                        name="comment" placeholder="Enter your comment here.."></textarea>
+                    <button disabled id="btnAddComment"
+                        class="btn btn--lg btn--sky-blue btn--rounded cursor-pointer">Post
+                        Comment</button>
+                </div>
+                <p id="loginNotify" class="text-red-600 mt-4">You must be login for write a comment</p>
+            </div>
+            <div id="comment-content" class="mt-10 space-y-5">
+                <template id="news-view-comment">
+                    <div class="flex  space-x-4">
+                        <figure class="w-[50px] h-[50px] shrink-0 rounded-full overflow-hidden">
+                            <img id="commentImg" class="image-cover" src="" alt="photo">
+                        </figure>
+                        <div class="w-full">
+                            <h4 id="userFullName" class="font-bold text-skyBlue">Name Surname</h4>
+                            <p id="userComment" class="text-sm text-amberBlack">Lorem ipsum dolor sit, amet consectetur
+                                adipisicing elit.
+                                Beatae
+                                magni adipisci labore. Nihil
+                                praesentium aut magnam ad molestias, amet voluptas.</p>
+                            <div class="flex items-center justify-between ">
+                                <span id="commentDate" class="text-sm text-gray-400">10.01.2023</span>
+                                <button id="deleteBtn" class="invisible btn btn--red btn--sm btn--rounded">
+                                    <i class="icon icon-trash1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </template>

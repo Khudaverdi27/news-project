@@ -1,8 +1,12 @@
 import '../css/index.css';
 import Alpine from 'alpinejs'
+import './alpine.js'
 import { uiNavigator } from './ui.js';
 import { router } from './router.js';
 import { serviceWeather } from './services.js';
+
+
+
 window.Alpine = Alpine
 
 Alpine.start()

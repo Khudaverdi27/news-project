@@ -8,7 +8,7 @@
   <title>Aster News</title>
 </head>
 
-<body>
+<body x-data="global">
   <main class="layout">
     <aside class="layout-left">
       <a href="/#/" class="flex py-[20px] px-[30px] items-center space-x-[15px]">
@@ -56,24 +56,27 @@
             <i class="icon icon-arrow-right1 ml-[38px]"></i>
           </a>
         </div>
-        <div class="shrink-0 relative group" x-data="{ open: false }">
-          <div class="relative flex items-center space-x-[13px] cursor-pointer" @click.outside="open= false"
-            @click=" open=! open">
-            <span>
-              <i class="icon icon-user1"></i>
-            </span>
-            <span>My Profile</span>
-            <span class="text-xl">
-              <i class="icon icon-chevron-down1"></i>
-            </span>
-          </div>
-          <div :class="{'dropdown-menu': true, 'dropdown-menu--open': open}">
-            <div class="mt-[15px] divide-y bg-white  border border-gray-300 rounded-theme">
-              <a href="#" class="p-[8px] block">Logout</a>
-              <a href="#" class="p-[8px] block">Logout</a>
-              <a href="#" class="p-[8px] block">Logout</a>
-              <a href="#" class="p-[8px] block">Logout</a>
-              <a href="#" class="p-[8px] block">Logout</a>
+        <div class="shrink-0 relative group">
+          <button @click="()=>modal(true)" class="btn btn--rounded btn--primary btn--lg">Login</button>
+          <div class="hidden" x-data="{open:false}">
+            <div class="relative flex items-center space-x-[13px] cursor-pointer" @click.outside="open= false"
+              @click=" open=! open">
+              <span>
+                <i class="icon icon-user1"></i>
+              </span>
+              <span>My Profile</span>
+              <span class="text-xl">
+                <i class="icon icon-chevron-down1"></i>
+              </span>
+            </div>
+            <div :class="{'dropdown-menu': true, 'dropdown-menu--open': open}">
+              <div class="mt-[15px] divide-y bg-white  border border-gray-300 rounded-theme">
+                <a href="#" class="p-[8px] block">Logout</a>
+                <a href="#" class="p-[8px] block">Logout</a>
+                <a href="#" class="p-[8px] block">Logout</a>
+                <a href="#" class="p-[8px] block">Logout</a>
+                <a href="#" class="p-[8px] block">Logout</a>
+              </div>
             </div>
           </div>
         </div>
@@ -82,7 +85,7 @@
         <div class="layout-content flex-1 relative">
           <div id="app"></div>
           <div class="flex items-center justify-center mt-5">
-            <button id="moreNews" class="btn btn--lg btn--rounded btn--sky-blue cursor-pointer ">Show More...</button>
+            <button id="moreNews" class="btn btn--lg btn--rounded btn--sky-blue">Show More...</button>
           </div>
           <footer
             class="flex justify-between items-center py-[23px] text-[12px] opacity-40 border-t border-gray-400 mt-[54px]">
@@ -164,6 +167,23 @@
             </div>
           </div>
         </aside>
+      </div>
+    </div>
+    <div class="modal" :class="modalOpen?'open':''" @click="(e)=>modalClose(e)">
+      <div class="modal-content">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="text" class="form-element" x-model="loginForm.email" placeholder="vframi@gmail.com">
+          <p x-show="formError.email" x-text="formError.email" class="text-red-500 text-sm mt-2"></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-element" x-model="loginForm.password" placeholder="123">
+          <p x-show="formError.password" x-text="formError.password" class="text-red-500 text-sm mt-2"></p>
+        </div>
+        <div class="form-group">
+          <button @click="authLogin" class="btn btn--rounded btn--lg btn--sky-blue w-full ">Login</button>
+        </div>
       </div>
     </div>
   </main>

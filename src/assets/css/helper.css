@@ -1,6 +1,10 @@
 /* === Buttons === */
 .btn {
-    @apply h-[32px] px-[15px] inline-flex items-center justify-center text-[15px]
+    @apply h-[32px] px-[15px] inline-flex items-center justify-center text-[15px] disabled:opacity-50 cursor-pointer
+}
+
+.btn--sm {
+    @apply h-[25px] px-[8px]
 }
 
 .btn--lg {
@@ -17,6 +21,10 @@
 
 .btn--primary {
     @apply bg-primary text-white
+}
+
+.btn--red {
+    @apply bg-[#FF8C8C] text-white
 }
 
 .btn--sky-blue {

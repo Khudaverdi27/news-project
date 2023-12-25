@@ -53,3 +53,31 @@ body {
 .loading img {
     @apply relative z-10 w-[60px] h-[60px] object-contain
 }
+
+.modal {
+    @apply transition-all flex items-center justify-center fixed inset-0 bg-gray-900/80 opacity-0 invisible
+}
+
+.modal.open {
+    @apply opacity-100 visible
+}
+
+.modal-content {
+    @apply transition-all bg-white shadow shadow-white min-w-[300px] rounded-xl p-6 scale-90 delay-200
+}
+
+.modal.open .modal-content {
+    @apply scale-100
+}
+
+.form-group {
+    @apply mb-4
+}
+
+.form-label {
+    @apply block
+}
+
+.form-element {
+    @apply border border-gray-200 h-[38px] w-full p-1
+}

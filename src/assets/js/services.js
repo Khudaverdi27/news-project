@@ -1,4 +1,4 @@
-import { get, getWeather } from './request.js';
+import { get, getWeather, post } from './request.js';
 import { routerLoading } from './router.js';
 import { getPosition } from './helper.js';
 
@@ -20,6 +20,14 @@ export const serviceNewsBySlug = async (slug) => {
     routerLoading(true)
     const res = await get(`/news/slug/${slug}`)
     routerLoading(false)
+    return res
+}
+export const serviceNewsByIdComments = async (id) => {
+    const res = await get(`/news/${id}/comments`)
+    return res
+}
+export const serviceAuthLogin = async (params) => {
+    const res = await post(`/users/login`, params)
     return res
 }
 

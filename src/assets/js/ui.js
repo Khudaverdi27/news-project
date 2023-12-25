@@ -1,8 +1,9 @@
 import { viewRouter } from "./router.js";
-import { serviceNewsList, serviceCategoryList, serviceNewsBySlug, serviceWeather } from "./services.js"
+import { serviceNewsList, serviceCategoryList, serviceNewsBySlug, serviceWeather, serviceNewsByIdComments } from "./services.js"
 import moment from 'moment';
 import { getStorage, saveStorage } from "./storage.js";
 import { objectToQueryString } from "./helper.js";
+
 
 
 export const getUiTemplate = (id, selector) => {
@@ -27,6 +28,7 @@ const getCategoryIcon = (key) => {
         "clear sky": "icon icon-sun",
         "few clouds": "icon icon-cloud",
         "scattered clouds": "icon icon-cloud1",
+        "overcast clouds": "icon icon-cloud1",
         "broken clouds": "icon icon-cloud",
         "shower rain": "icon icon-cloud-rain",
         "rain": "icon icon-cloud-drizzle",
@@ -34,7 +36,7 @@ const getCategoryIcon = (key) => {
         "snow": "icon icon-cloud-snow",
         "mist": "icon icon-cloud1"
     }
-    return icons[key ? key : "few clouds"]
+    return icons[key]
 }
 
 export const toCapitalizeLetter = (str) => {
@@ -70,14 +72,14 @@ export const uiNavigator = async () => {
     });
 
 }
-
+const showBtn = document.getElementById('moreNews');
 export const uiNews = async (params = {}) => {
     let newsCount = 4;
     let value = true
     try {
         const content = document.getElementById('news-content');
         const template = getUiTemplate('news-template', 'article');
-        const showBtn = document.getElementById('moreNews');
+
 
         const updateContent = (newsList) => {
             let html = '';
@@ -91,6 +93,7 @@ export const uiNews = async (params = {}) => {
                 html += template.outerHTML;
             });
             content.innerHTML = html;
+
             if (newsList.length >= 20 && value) {
                 showBtn.style.display = 'none';
                 value = false
@@ -100,6 +103,7 @@ export const uiNews = async (params = {}) => {
         };
 
         const res = await serviceNewsList(newsCount, objectToQueryString(params));
+
         updateContent(res);
 
         const loadMoreNews = async () => {
@@ -110,11 +114,9 @@ export const uiNews = async (params = {}) => {
         showBtn.addEventListener('click', loadMoreNews);
 
     } catch (error) {
-        console.error('error happened:', error);
+
     }
 };
-
-
 
 
 
@@ -134,7 +136,57 @@ export const uiNewsView = async (slug) => {
     template.querySelector('#photo').src = res.photo
     template.querySelector('#content').innerHTML = res.content
     content.innerHTML = template.outerHTML
+
+    await newsComments(res.id)
+    if (slug) {
+        showBtn.style.display = 'none';
+    }
+
 }
+
+const newsComments = async (id) => {
+
+    const comments = await serviceNewsByIdComments(id)
+    const token = getStorage("token")
+    const user = getStorage("user")
+
+    const contentComment = document.getElementById('comment-content')
+    const templateComment = getUiTemplate('news-view-comment', 'div')
+
+
+    let html = comments.map(comment => {
+        templateComment.querySelector("#commentImg").src = comment.user.photo;
+        templateComment.querySelector("#userFullName").textContent = `${comment.user.name} ${comment.user.surname}`;
+        templateComment.querySelector("#userComment").textContent = comment.body;
+        templateComment.querySelector("#commentDate").textContent = moment(comment.created_at).format('DD-MM-YY, HH:mm');
+
+        const deleteButton = templateComment.querySelector("#deleteBtn");
+
+        const isAuthorized = token && comment.user.id === user.id;
+
+        deleteButton.classList.toggle("visible", isAuthorized);
+        deleteButton.classList.toggle("invisible", !isAuthorized);
+
+        return templateComment.outerHTML;
+    }).join('');
+
+    contentComment.innerHTML = html;
+
+
+    const comment = document.querySelector('textarea[name="comment"]')
+    const addBtn = document.querySelector('#btnAddComment')
+    const notify = document.querySelector('#loginNotify')
+
+    const isTokenNotEmpty = token && token.length !== 0;
+
+    addBtn.disabled = !isTokenNotEmpty;
+    comment.disabled = !isTokenNotEmpty;
+    notify.classList.toggle("invisible", isTokenNotEmpty);
+
+}
+
+
+
 
 export const newsSearch = (params) => {
     let categories = getStorage('categories');
@@ -149,6 +201,7 @@ export const newsSearch = (params) => {
 
 const weatherInfo = async () => {
     const weatherInfo = await serviceWeather()
+
     document.getElementById('cityName').textContent = `${weatherInfo.name}, ${weatherInfo.sys.country}`
     document.getElementById('wheaterType').textContent = weatherInfo.weather[0].main
     document.getElementById('weatherIcon').classList = getCategoryIcon(weatherInfo.weather[0].description)
