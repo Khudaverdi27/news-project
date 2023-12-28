@@ -1,16 +1,22 @@
 import Alpine from 'alpinejs'
-import { serviceAuthLogin } from './services.js'
-import { saveStorage } from './storage.js'
+import { getStorage } from './storage.js'
+import { AuthMethod, NewsMethod } from './methods.js'
 
 document.addEventListener('alpine:init', () => {
 
     Alpine.data('global', () => ({
+
         modalOpen: false,
         loginForm: {
             email: '',
             password: '',
         },
+        commentForm: {
+            body: "",
+        },
         formError: {},
+        user: getStorage("user"),
+
         modal(action) {
             this.modalOpen = action
         },
@@ -19,16 +25,8 @@ document.addEventListener('alpine:init', () => {
                 this.modalOpen = false
             }
         },
-        async authLogin() {
-            const res = await serviceAuthLogin(this.loginForm)
-            if (res.status === 422) {
-                this.formError = res.message
-            } else {
-                saveStorage("token", res.token)
-                saveStorage("user", res.user)
-                window.location.reload()
-            }
-        }
+        ...AuthMethod,
+        ...NewsMethod
     }))
 
 })

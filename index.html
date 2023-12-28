@@ -57,25 +57,22 @@
           </a>
         </div>
         <div class="shrink-0 relative group">
-          <button @click="()=>modal(true)" class="btn btn--rounded btn--primary btn--lg">Login</button>
-          <div class="hidden" x-data="{open:false}">
+          <button @click="()=>modal(true)" :class="user ? '!hidden' : ''"
+            class=" btn btn--rounded btn--primary btn--lg">Login</button>
+          <div :class="!user ? 'hidden' : ''" x-data="{open:false}">
             <div class="relative flex items-center space-x-[13px] cursor-pointer" @click.outside="open= false"
               @click=" open=! open">
               <span>
                 <i class="icon icon-user1"></i>
               </span>
-              <span>My Profile</span>
+              <span x-text="user.name + ' ' + user.surname"></span>
               <span class="text-xl">
                 <i class="icon icon-chevron-down1"></i>
               </span>
             </div>
             <div :class="{'dropdown-menu': true, 'dropdown-menu--open': open}">
               <div class="mt-[15px] divide-y bg-white  border border-gray-300 rounded-theme">
-                <a href="#" class="p-[8px] block">Logout</a>
-                <a href="#" class="p-[8px] block">Logout</a>
-                <a href="#" class="p-[8px] block">Logout</a>
-                <a href="#" class="p-[8px] block">Logout</a>
-                <a href="#" class="p-[8px] block">Logout</a>
+                <button @click="authLogout" class="p-[5px] block w-full">Logout</button>
               </div>
             </div>
           </div>
@@ -169,7 +166,7 @@
         </aside>
       </div>
     </div>
-    <div class="modal" :class="modalOpen?'open':''" @click="(e)=>modalClose(e)">
+    <div class="modal" :class="modalOpen?'open':'!hidden'" @click="(e)=>modalClose(e)">
       <div class="modal-content">
         <div class="form-group">
           <label class="form-label">Email</label>

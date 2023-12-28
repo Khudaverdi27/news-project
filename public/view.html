@@ -20,14 +20,15 @@
             <div id="form-comment" class="mt-[32px]">
                 <h4 class="font-[700] text-[17px]">Add your comment</h4>
                 <div>
-                    <textarea disabled
+                    <input type="hidden" id="newsId">
+                    <textarea x-model="commentForm.body" :disabled="!user"
                         class="bg-[#ECF5F8] border my-[10px] border-gray-300 rounded-theme w-full py-[12px] px-[18px] disabled:opacity-50"
                         name="comment" placeholder="Enter your comment here.."></textarea>
-                    <button disabled id="btnAddComment"
+                    <button @click="newsCommentPost()" :disabled="!user"
                         class="btn btn--lg btn--sky-blue btn--rounded cursor-pointer">Post
                         Comment</button>
                 </div>
-                <p id="loginNotify" class="text-red-600 mt-4">You must be login for write a comment</p>
+                <p x-show="!user" class="text-red-600 mt-4">You must be login for write a comment</p>
             </div>
             <div id="comment-content" class="mt-10 space-y-5">
                 <template id="news-view-comment">
@@ -44,8 +45,9 @@
                                 praesentium aut magnam ad molestias, amet voluptas.</p>
                             <div class="flex items-center justify-between ">
                                 <span id="commentDate" class="text-sm text-gray-400">10.01.2023</span>
-                                <button id="deleteBtn" class="invisible btn btn--red btn--sm btn--rounded">
-                                    <i class="icon icon-trash1"></i>
+                                <button @click="(e)=>newsDeleteComments(e)" id="deleteBtn"
+                                    class="invisible btn btn--red btn--sm btn--rounded">
+                                    delete
                                 </button>
                             </div>
                         </div>

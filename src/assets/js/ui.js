@@ -6,7 +6,9 @@ import { objectToQueryString } from "./helper.js";
 
 
 
+
 export const getUiTemplate = (id, selector) => {
+
     const element = document.getElementById(id)
     const clone = element.content.cloneNode(true)
 
@@ -31,6 +33,7 @@ const getCategoryIcon = (key) => {
         "overcast clouds": "icon icon-cloud1",
         "broken clouds": "icon icon-cloud",
         "shower rain": "icon icon-cloud-rain",
+        "light intensity shower rain": "icon icon-cloud-rain",
         "rain": "icon icon-cloud-drizzle",
         "thunderstorm": "icon icon-cloud-lightning",
         "snow": "icon icon-cloud-snow",
@@ -118,6 +121,37 @@ export const uiNews = async (params = {}) => {
     }
 };
 
+export const newsComments = async (newsId) => {
+
+    const comments = await serviceNewsByIdComments(newsId)
+    const sortedComments = comments.sort((a, b) => b.id - a.id)
+
+    const token = getStorage("token")
+    const user = getStorage("user")
+
+    const contentComment = document.getElementById('comment-content')
+    const templateComment = getUiTemplate('news-view-comment', 'div');
+
+    let html = sortedComments.map(comment => {
+
+        templateComment.querySelector("#commentImg").src = comment.user.photo;
+        templateComment.querySelector("#userFullName").textContent = `${comment.user.name} ${comment.user.surname}`;
+        templateComment.querySelector("#userComment").textContent = comment.body;
+        templateComment.querySelector("#commentDate").textContent = moment(comment.created_at).format('DD-MM-YY, HH:mm');
+
+        const deleteButton = templateComment.querySelector("#deleteBtn");
+        deleteButton.setAttribute("data-comment-id", comment.id);
+        const isAuthorized = token && comment.user.id === user.id;
+
+        deleteButton.classList.toggle("visible", isAuthorized);
+        deleteButton.classList.toggle("invisible", !isAuthorized);
+
+        return templateComment.outerHTML;
+    }).join('');
+
+    contentComment.innerHTML = html;
+
+}
 
 
 export const uiNewsView = async (slug) => {
@@ -137,53 +171,16 @@ export const uiNewsView = async (slug) => {
     template.querySelector('#content').innerHTML = res.content
     content.innerHTML = template.outerHTML
 
-    await newsComments(res.id)
+
+    document.getElementById('newsId').setAttribute('value', res.id)
+
+    newsComments(res.id)
     if (slug) {
         showBtn.style.display = 'none';
     }
 
 }
 
-const newsComments = async (id) => {
-
-    const comments = await serviceNewsByIdComments(id)
-    const token = getStorage("token")
-    const user = getStorage("user")
-
-    const contentComment = document.getElementById('comment-content')
-    const templateComment = getUiTemplate('news-view-comment', 'div')
-
-
-    let html = comments.map(comment => {
-        templateComment.querySelector("#commentImg").src = comment.user.photo;
-        templateComment.querySelector("#userFullName").textContent = `${comment.user.name} ${comment.user.surname}`;
-        templateComment.querySelector("#userComment").textContent = comment.body;
-        templateComment.querySelector("#commentDate").textContent = moment(comment.created_at).format('DD-MM-YY, HH:mm');
-
-        const deleteButton = templateComment.querySelector("#deleteBtn");
-
-        const isAuthorized = token && comment.user.id === user.id;
-
-        deleteButton.classList.toggle("visible", isAuthorized);
-        deleteButton.classList.toggle("invisible", !isAuthorized);
-
-        return templateComment.outerHTML;
-    }).join('');
-
-    contentComment.innerHTML = html;
-
-
-    const comment = document.querySelector('textarea[name="comment"]')
-    const addBtn = document.querySelector('#btnAddComment')
-    const notify = document.querySelector('#loginNotify')
-
-    const isTokenNotEmpty = token && token.length !== 0;
-
-    addBtn.disabled = !isTokenNotEmpty;
-    comment.disabled = !isTokenNotEmpty;
-    notify.classList.toggle("invisible", isTokenNotEmpty);
-
-}
 
 
 

@@ -40,7 +40,7 @@
 }
 
 .dropdown-menu {
-    @apply absolute right-0 z-50 transition-all w-[190px] top-0 opacity-0 invisible
+    @apply absolute right-0 z-50 transition-all w-[136px] top-0 opacity-0 invisible
 }
 
 .dropdown-menu--open {

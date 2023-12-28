@@ -1,4 +1,4 @@
-import { get, getWeather, post } from './request.js';
+import { deleteComment, get, getWeather, post } from './request.js';
 import { routerLoading } from './router.js';
 import { getPosition } from './helper.js';
 
@@ -26,11 +26,18 @@ export const serviceNewsByIdComments = async (id) => {
     const res = await get(`/news/${id}/comments`)
     return res
 }
+export const serviceNewsPostComment = async (id, params) => {
+    const res = await post(`/news/${id}/comment`, params)
+    return res
+}
 export const serviceAuthLogin = async (params) => {
     const res = await post(`/users/login`, params)
     return res
 }
-
+export const serviceNewsDeleteComments = async (id, commentId) => {
+    const res = await deleteComment(`/news/${id}/comment/${commentId}`)
+    return res
+}
 
 export const serviceWeather = () => new Promise(async (resolve, reject) => {
     if ('geolocation' in navigator) {
