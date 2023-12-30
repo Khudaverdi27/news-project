@@ -24,9 +24,11 @@
                     <textarea x-model="commentForm.body" :disabled="!user"
                         class="bg-[#ECF5F8] border my-[10px] border-gray-300 rounded-theme w-full py-[12px] px-[18px] disabled:opacity-50"
                         name="comment" placeholder="Enter your comment here.."></textarea>
-                    <button @click="newsCommentPost()" :disabled="!user"
+                    <p x-show="commentError.body" x-text="commentError.body" class="text-red-500 text-sm mb-1"></p>
+                    <button @click="newsCommentPost()" :disabled="!user || !commentForm.body?.length"
                         class="btn btn--lg btn--sky-blue btn--rounded cursor-pointer">Post
                         Comment</button>
+
                 </div>
                 <p x-show="!user" class="text-red-600 mt-4">You must be login for write a comment</p>
             </div>

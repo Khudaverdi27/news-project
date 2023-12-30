@@ -24,13 +24,14 @@ export const AuthMethod = {
 export const NewsMethod = {
     async newsCommentPost() {
         const newsId = document.querySelector("#newsId")?.value;
-
-
-
         const res = await serviceNewsPostComment(newsId, this.commentForm);
 
+        if (res.status === 422) {
+            this.commentError = res.message;
+        }
         if (res.id) {
             newsComments(newsId);
+            location.reload()
             this.commentForm = { body: '' };
         }
     },
@@ -52,6 +53,7 @@ export const NewsMethod = {
             const res = await serviceNewsDeleteComments(newsId.value, commentId);
             if (res) {
                 newsComments(newsId.value);
+                location.reload()
             }
         }
     }

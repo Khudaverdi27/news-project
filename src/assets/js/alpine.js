@@ -15,6 +15,7 @@ document.addEventListener('alpine:init', () => {
             body: "",
         },
         formError: {},
+        commentError: {},
         user: getStorage("user"),
 
         modal(action) {

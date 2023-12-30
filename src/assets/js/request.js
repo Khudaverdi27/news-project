@@ -20,6 +20,7 @@ const request = async (baseUrl, url, method, params = false) => {
     if (params) {
         options.body = JSON.stringify(params);
         headers["Content-Type"] = "application/json";
+        // post commment to news
         if (token) {
             headers.Authorization = `Bearer ${token}`
         }
